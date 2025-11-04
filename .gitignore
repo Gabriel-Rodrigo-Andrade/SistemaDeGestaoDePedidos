@@ -1,0 +1,15 @@
+.vscode/
+
+# Compiled class files
+*.class
+
+# IDE folders
+/.idea/
+
+# Build directories
+/out/
+/bin/
+/target/
+
+# macOS
+.DS_Store
