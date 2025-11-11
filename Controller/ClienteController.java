@@ -14,15 +14,6 @@ public class ClienteController {
   }
 
   public boolean cadastrarCliente(String id, String nome, String email) {
-    // Validação rápida no controller para melhorar UX (evita chamada desnecessária
-    // ao Service)
-    try {
-      Util.ClienteValidator.validateId(id);
-    } catch (ClienteInvalidoException e) {
-      System.out.println("❌ Erro: " + e.getMessage());
-      return false;
-    }
-
     try {
       service.cadastrarCliente(id, nome, email);
       System.out.println("✅ Cliente cadastrado com sucesso!");

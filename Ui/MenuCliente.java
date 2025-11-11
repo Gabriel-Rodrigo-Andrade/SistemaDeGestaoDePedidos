@@ -15,15 +15,20 @@ public class MenuCliente {
   }
 
   public void exibirMenu() {
-    int opcao;
+    int opcao = -1;
     do {
       System.out.println("\n=== Menu Clientes ===");
       System.out.println("1. Cadastrar Cliente");
       System.out.println("2. Listar Clientes");
       System.out.println("0. Voltar");
       System.out.print("Escolha: ");
-      opcao = scanner.nextInt();
-      scanner.nextLine();
+      String entrada = scanner.nextLine();
+      try {
+        opcao = Integer.parseInt(entrada.trim());
+      } catch (NumberFormatException e) {
+        System.out.println("Opção inválida. Digite um número.");
+        continue;
+      }
 
       switch (opcao) {
         case 1 -> cadastrar();

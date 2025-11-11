@@ -2,7 +2,6 @@ package Service;
 
 import Model.Cliente;
 import Repository.IRepositorioCliente;
-import Exceptions.*;
 import Util.ClienteValidator;
 
 import java.util.List;
@@ -19,11 +18,6 @@ public class ClienteService {
     ClienteValidator.validateId(id);
     ClienteValidator.validateNome(nome);
     ClienteValidator.validateEmail(email);
-
-    if (repositorio.buscarPorId(id) != null) {
-      throw new IdDuplicadoException();
-    }
-
     Cliente cliente = new Cliente(id, nome, email);
     repositorio.adicionar(cliente);
   }
