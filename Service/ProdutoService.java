@@ -15,13 +15,11 @@ public class ProdutoService {
   }
 
   public void cadastrarProduto(int id, String nome, double preco, Categoria categoria) {
-    // Validações rápidas no service (melhora UX). A entidade também valida
-    // como defesa final — validação dupla é intencional.
+    // validação dupla intencional.
     ProdutoValidator.validateId(id);
     ProdutoValidator.validateNome(nome);
     ProdutoValidator.validatePreco(preco);
     ProdutoValidator.validateCategoria(categoria);
-
     Produto produto = new Produto(id, nome, preco, categoria);
     repositorio.adicionar(produto);
   }

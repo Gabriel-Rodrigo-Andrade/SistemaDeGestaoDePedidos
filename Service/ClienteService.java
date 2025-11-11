@@ -14,7 +14,7 @@ public class ClienteService {
   }
 
   public void cadastrarCliente(String id, String nome, String email) {
-    // Validações centrais via utilitário
+    // validação dupla intencional.
     ClienteValidator.validateId(id);
     ClienteValidator.validateNome(nome);
     ClienteValidator.validateEmail(email);

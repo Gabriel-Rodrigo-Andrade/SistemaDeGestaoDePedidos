@@ -1,6 +1,6 @@
 package Model;
 
-import Exceptions.ProdutoInvalidoException;
+import Util.ProdutoValidator;
 
 public class Produto {
   private int id;
@@ -9,12 +9,12 @@ public class Produto {
   private Categoria categoria;
 
   public Produto(int id, String nome, double preco, Categoria categoria) {
-    if (preco <= 0) {
-      throw new ProdutoInvalidoException("Preço deve ser maior que zero!");
-    }
-    if (nome == null || nome.trim().isEmpty()) {
-      throw new ProdutoInvalidoException("Nome do produto não pode estar vazio!");
-    }
+    // Delegar validação ao ProdutoValidator para evitar duplicação com cliente
+    ProdutoValidator.validateId(id);
+    ProdutoValidator.validateNome(nome);
+    ProdutoValidator.validatePreco(preco);
+    ProdutoValidator.validateCategoria(categoria);
+
     this.id = id;
     this.nome = nome;
     this.preco = preco;
