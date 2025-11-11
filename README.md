@@ -3,16 +3,66 @@
 Este repositório contém uma aplicação Java simples para gestão de clientes e produtos. Também tentamos demonstrar uma arquitetura em camadas (UI -> Controller -> Service -> Repository -> Model) com validações e tratamento de exceções.
 
 -------------------------
+## Diagrama
 
-## Visão geral das camadas
+```
+     +-----------------+        +-----------------+        +-----------------+
+     |     UI (CLI)    |  --->  |   Controller    |  --->  |     Service     |
+     | MenuCliente/    |        | Cliente/Produto |        | Cliente/Produto |
+     |  MenuProduto    |        +-----------------+        +-----------------+
+                  |
+                  v
+                +-----------------+
+                |   Repository    | (ConcurrentHashMap)
+                | Cliente/Produto |
+                +-----------------+
+                  |
+                  v
+                +-----------------+
+                |     Model       |
+                | Cliente/Produto |
+                +-----------------+
 
-- UI (Ui/*): menus de interação com o usuário (`MenuCliente`, `MenuProduto`).
-- Controller (Controller/*): recebe entrada da UI, delega ao Service e trata exceções para mensagens amigáveis (`ClienteController`, `ProdutoController`).
-- Service (Service/*): lógica de negócio e validações de alto nível (`ClienteService`, `ProdutoService`).
-- Repository (Repository/*): persistência em memória (implementações `RepositorioClienteMemoria`, `RepositorioProdutoMemoria` que usam `ConcurrentHashMap`).
-- Model (Model/*): objetos de domínio (`Cliente`, `Produto`, `Categoria`).
-- Util (Util/*): validadores utilitários (`ClienteValidator`, `ProdutoValidator`).
-- Exceptions (Exceptions/*): classes de exceção usadas na aplicação.
+Notas:
+- As setas representam o fluxo principal de chamadas (UI -> Controller -> Service -> Repository -> Model).
+- Os repositórios usam `ConcurrentHashMap` e `putIfAbsent` para evitar condições de corrida e detectar IDs duplicados.
+```
+
+### Métodos principais por camada
+
+```
+UI (MenuCliente/MenuProduto)
+  - exibirMenu()
+  - coletar input (id, nome, email/preco/categoria)
+  - chamar Controller.cadastrar*/listar*
+
+Controller (ClienteController / ProdutoController)
+  - cadastrarCliente(id,nome,email) -> chama ClienteService.cadastrarCliente(...)
+  - listarClientes() -> chama ClienteService.listarClientes()
+  - cadastrarProduto(id,nome,preco,categoria) -> chama ProdutoService.cadastrarProduto(...)
+  - listarProdutos() -> chama ProdutoService.listarProdutos()
+
+Service (ClienteService / ProdutoService)
+  - validar dados via ClienteValidator / ProdutoValidator
+  - construir objeto de domínio (new Cliente(...) / new Produto(...))
+  - chamar repositorio.adicionar(obj)
+  - expor listar() que delega ao repositorio.listar()
+
+Repository (IRepositorio*/Repositorio*Memoria)
+  - adicionar(T obj) -> usa putIfAbsent(id,obj) e lança IdDuplicadoException(entidade)
+  - listar() -> retorna coleção atual
+  - buscarPorId(id) -> retorna objeto ou null
+
+Model (Cliente / Produto)
+  - construtor com validações defensivas (lança ClienteInvalidoException / ProdutoInvalidoException)
+  - getters e toString()
+
+Exceptions / Util
+  - Validators (ClienteValidator, ProdutoValidator) -> quebram a requisição com exceptions amigáveis para UI
+  - IdDuplicadoException(entidade) -> mensagem parametrizada (e.g. "Já existe um(a) Produto com este ID.")
+
+Observação: O Service executa validações prévias para melhorar UX; o modelo valida novamente como defesa final.
+```
 
 -------------------------
 
