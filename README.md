@@ -1,6 +1,6 @@
 ## Sistema de Gestão de Pedidos
 
-Este repositório contém uma aplicação Java simples para gestão de clientes e produtos. O objetivo é demonstrar uma arquitetura em camadas (UI -> Controller -> Service -> Repository -> Model) com validações e tratamento de exceções.
+Este repositório contém uma aplicação Java simples para gestão de clientes e produtos. Também tentamos demonstrar uma arquitetura em camadas (UI -> Controller -> Service -> Repository -> Model) com validações e tratamento de exceções.
 
 -------------------------
 
