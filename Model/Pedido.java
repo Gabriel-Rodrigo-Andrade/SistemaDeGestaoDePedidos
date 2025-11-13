@@ -93,8 +93,12 @@ public class Pedido {
     return sb.toString();
   }
 
+
+// A classe Object é a classe base de todas as classes em Java.
+// Todos os objetos herdam dela e possuem métodos como equals(), hashCode() e toString().
   @Override
   public boolean equals(Object o) {
+    // Compara se dois pedidos são iguais pelo ID
     if (this == o)
       return true;
     if (!(o instanceof Pedido))
@@ -105,6 +109,7 @@ public class Pedido {
 
   @Override
   public int hashCode() {
+    // Gera um código numérico único baseado no ID (usado em coleções como HashMap)
     return Objects.hash(id);
   }
 }

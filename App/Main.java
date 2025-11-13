@@ -18,7 +18,7 @@ public class Main {
     PedidoController pedidoController = new PedidoController(pedidoService);
 
     // Inicia worker de processamento em background (5 segundos por pedido)
-    ProcessadorFilaPedidos worker = new ProcessadorFilaPedidos(repoPedido, 5000L);
+    ProcessadorFilaPedidos worker = new ProcessadorFilaPedidos(repoPedido, 10000L);
     Thread workerThread = new Thread(worker, "pedido-worker-1");
     workerThread.start();
 

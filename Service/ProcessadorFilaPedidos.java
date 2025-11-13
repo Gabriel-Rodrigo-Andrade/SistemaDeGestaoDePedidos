@@ -10,6 +10,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Worker simples que consome a fila e processa pedidos.
  * Usa System.out.println para feedback (coerente com o projeto).
  */
+
+/**
+ * Worker é instanciado na main
+ */
 public class ProcessadorFilaPedidos implements Runnable {
   private final IRepositorioPedido repositorio;
   private final long processamentoMillis;

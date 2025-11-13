@@ -9,7 +9,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class RepositorioPedidoMemoria implements IRepositorioPedido {
+  // melhor q hashmap pq faz leitura e escrita ao mesmo tempo com mais
+  // consistencia
   private final ConcurrentHashMap<String, Pedido> map = new ConcurrentHashMap<>();
+  // fila que bloqueia threads automaticamente quando está vazia ou cheia
   private final BlockingQueue<Pedido> fila = new LinkedBlockingQueue<>();
 
   @Override

@@ -56,7 +56,7 @@ public class MenuPedido {
       // Busca cliente já cadastrado
       Cliente cliente = clienteController.buscarPorId(clienteId);
       if (cliente == null) {
-        System.out.println("❌ Cliente não encontrado com id: " + clienteId);
+        System.out.println("Cliente não encontrado com id: " + clienteId);
         System.out.println("Deseja listar clientes cadastrados? (S/N)");
         String resp = scanner.nextLine().trim();
         if (resp.equalsIgnoreCase("S")) {
@@ -70,7 +70,8 @@ public class MenuPedido {
         System.out.print("Deseja listar produtos cadastrados? (S/N): ");
         String listar = scanner.nextLine().trim();
         if (listar.equalsIgnoreCase("S")) {
-          // lista produtos
+          // for-each vem de produtoController.listarProdutos() — que retorna uma
+          // List<Produto>
           for (Model.Produto p : produtoController.listarProdutos()) {
             System.out.println(p);
           }
@@ -87,7 +88,7 @@ public class MenuPedido {
 
         Produto produto = produtoController.buscarPorId(produtoId);
         if (produto == null) {
-          System.out.println("❌ Produto não encontrado com id: " + produtoId);
+          System.out.println("Produto não encontrado com id: " + produtoId);
           continue;
         }
 
