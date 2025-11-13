@@ -1,8 +1,6 @@
 package Ui;
 
 import Controller.ClienteController;
-import Service.ClienteService;
-import Repository.RepositorioClienteMemoria;
 
 import java.util.Scanner;
 
@@ -10,8 +8,9 @@ public class MenuCliente {
   private ClienteController controller;
   private Scanner scanner = new Scanner(System.in);
 
-  public MenuCliente() {
-    controller = new ClienteController(new ClienteService(new RepositorioClienteMemoria()));
+  // Injeção do controller para permitir compartilhamento de repositório
+  public MenuCliente(ClienteController controller) {
+    this.controller = controller;
   }
 
   public void exibirMenu() {

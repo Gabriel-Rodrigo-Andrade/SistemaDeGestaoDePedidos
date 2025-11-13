@@ -34,4 +34,8 @@ public class ProdutoController {
   public List<Produto> listarProdutos() {
     return service.listarProdutos();
   }
+
+  public Produto buscarPorId(int id) {
+    return service.buscarPorId(id);
+  }
 }

@@ -1,18 +1,21 @@
 package Ui;
 
 import Controller.ProdutoController;
-import Service.ProdutoService;
-import Repository.RepositorioProdutoMemoria;
 import Model.Categoria;
 import Model.Produto;
 
 import java.util.Scanner;
+import java.util.List;
 
 public class MenuProduto {
-  private ProdutoController controller = new ProdutoController(
-      new ProdutoService(new RepositorioProdutoMemoria()));
+  private ProdutoController controller;
 
   private Scanner sc = new Scanner(System.in);
+
+  // Injeção do controller para compartilhar repositório
+  public MenuProduto(ProdutoController controller) {
+    this.controller = controller;
+  }
 
   public void exibirMenu() {
     int opcao = -1;
@@ -80,7 +83,12 @@ public class MenuProduto {
 
   private void listarProdutos() {
     System.out.println("\n=== LISTA DE PRODUTOS ===");
-    for (Produto p : controller.listarProdutos()) {
+    List<Produto> produtos = controller.listarProdutos();
+    if (produtos.isEmpty()) {
+      System.out.println("Nenhum produto cadastrado.");
+      return;
+    }
+    for (Produto p : produtos) {
       System.out.println(p);
     }
   }

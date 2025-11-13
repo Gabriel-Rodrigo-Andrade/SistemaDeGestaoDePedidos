@@ -25,4 +25,8 @@ public class ClienteService {
   public List<Cliente> listarClientes() {
     return repositorio.listar();
   }
+
+  public Cliente buscarPorId(String id) {
+    return repositorio.buscarPorId(id);
+  }
 }

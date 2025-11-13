@@ -27,4 +27,8 @@ public class ProdutoService {
   public List<Produto> listarProdutos() {
     return repositorio.listar();
   }
+
+  public Produto buscarPorId(int id) {
+    return repositorio.buscarPorId(id);
+  }
 }

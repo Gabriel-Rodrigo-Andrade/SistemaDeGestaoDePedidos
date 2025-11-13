@@ -41,4 +41,8 @@ public class ClienteController {
       clientes.forEach(System.out::println);
     }
   }
+
+  public Cliente buscarPorId(String id) {
+    return service.buscarPorId(id);
+  }
 }
